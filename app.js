@@ -59,7 +59,7 @@ var AssetPipe = function( config, basePath ) {
         }
     };
     /* Init */
-    this.fire('onInit');
+    this.fire('init');
     var config = config || require('./assets'); 
     if(!config) throw new Error('Please provide a configuration');
     if(config.environment){
@@ -100,9 +100,9 @@ var AssetPipe = function( config, basePath ) {
         this.fire('beforeParse');
         var scripts = this.buildScriptTags();
         var styles = this.buildCssTags();
-
-        return html.replace(/{{ js }}/g, scripts).replace(/{{ css }}/g, styles);
-    }
+        var parsedHtml = html.replace(/{{ js }}/g, scripts).replace(/{{ css }}/g, styles);
+        this.fire('afterParse');
+        return parsedHtml; 
        
 }
 
