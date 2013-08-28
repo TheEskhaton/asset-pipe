@@ -1,9 +1,30 @@
  {
-            "environment":"production", 
+            "environment":"development", 
             "development" :
                 {   
-                    "scripts" : { "jquery": "jquery.js"}, 
-                    "styles" : { "main": "main.css"}
+                    "scripts" : { 
+                        "helpers": {
+                            "path": "helpers.js"
+                        },
+                        "app": {
+                                "path": "app.js",
+                                "dependsOn": ["jquery", "backbone", "helpers"]
+                            },
+                        "underscore" : {
+                            "path": "underscore.js"
+                            },
+                        "backbone" : {
+                            "path" : "backbone.js", 
+                            "dependsOn" : ["jquery", "underscore"]
+                            },
+                        "jquery": {
+                                "path": "jquery.js"
+                            }
+                        
+                        }, 
+                    "styles" : {
+                        "main": "main.css"
+                        }
                 },
             "production" : 
                 {

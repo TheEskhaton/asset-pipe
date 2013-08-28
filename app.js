@@ -1,3 +1,29 @@
+var getSortedDependencies = function(scripts){
+    var unsorted = [];
+    for(var key in scripts){
+        unsorted.push(key);
+    }
+    for(var key in scripts){
+        var script = scripts[key];
+        if(script.dependsOn){
+            for(var dep in script.dependsOn){
+                var dependency = script.dependsOn[dep];
+                var depInd = unsorted.indexOf(dependency);
+                var keyInd = unsorted.indexOf(key);
+                while(depInd > keyInd){
+                    if(unsorted.length >= keyInd+1){
+                        var tmp = unsorted[keyInd+1];
+                        unsorted[keyInd+1] = unsorted[keyInd];
+                        unsorted[keyInd] = tmp;
+                        keyInd = unsorted.indexOf(key);
+                    }    
+                }
+            }
+        }
+    }
+    return unsorted;
+}
+
 var AssetPipe = function( config, basePath ) {
     var config = config || require('./assets'); 
     if(!config) throw new Error('Please provide a configuration');
@@ -13,11 +39,17 @@ var AssetPipe = function( config, basePath ) {
     }
     basePath = basePath || '/';
     
+    
     this.buildScriptTags = function(){
         var scriptTags = '';
-        for(var script in config.scripts){
-            scriptTags+= '<script src="'+basePath+config.scripts[script]+'" type="text/javascript"></script>';
+        var sortedScripts = getSortedDependencies(config.scripts);
+        for(var key in sortedScripts){
+            var scriptName = sortedScripts[key];
+            var script = config.scripts[scriptName];
+            scriptTags += '<script src="'+basePath+script.path+'" type="text/javascript"></script>';  
         }
+
+
         return scriptTags;
     }
     this.buildCssTags = function(){
@@ -37,4 +69,8 @@ var AssetPipe = function( config, basePath ) {
     }
 }
 
-module.exports = AssetPipe;
+module.exports = AssetPipe; 
+
+var pipe = new AssetPipe();
+
+console.log(pipe.parse('<head>{{ js }} {{ css }}</head>'));
