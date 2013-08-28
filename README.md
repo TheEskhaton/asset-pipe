@@ -2,10 +2,16 @@
 
 A function that replaces {{ js }} and {{ css }} template tags in html with the appropriate script and css link tags
 
+## Installation
+
+```
+    npm install asset-pipe
+```
+
 ## Example
 
 ``` javascript
-    var AssetPipe = require('AssetPipe');
+    var AssetPipe = require('asset-pipe');
     var pipe = new AssetPipe(); // instantiates a new asset pipe with scripts and styles loaded from the assets.json file
     var inputHtml = '<head>{{ js }} {{ css }}</head>';
     var parsedHtml = pipe.parse(inputHtml);
