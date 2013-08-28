@@ -1,29 +1,4 @@
-var getSortedDependencies = function(scripts){
-    var unsorted = [];
-    for(var key in scripts){
-        unsorted.push(key);
-    }
-    for(var key in scripts){
-        var script = scripts[key];
-        if(script.dependsOn){
-            for(var dep in script.dependsOn){
-                var dependency = script.dependsOn[dep];
-                var depInd = unsorted.indexOf(dependency);
-                var keyInd = unsorted.indexOf(key);
-                while(depInd > keyInd){
-                    if(unsorted.length >= keyInd+1){
-                        var tmp = unsorted[keyInd+1];
-                        unsorted[keyInd+1] = unsorted[keyInd];
-                        unsorted[keyInd] = tmp;
-                        keyInd = unsorted.indexOf(key);
-                    }    
-                }
-            }
-        }
-    }
-    return unsorted;
-}
-
+var sort = require('./lib/dependency-sorter');
 var AssetPipe = function( config, basePath ) {
      /* Events */
     var pipeEvents = []
@@ -77,7 +52,7 @@ var AssetPipe = function( config, basePath ) {
     
     this.buildScriptTags = function(){
         var scriptTags = '';
-        var sortedScripts = getSortedDependencies(config.scripts);
+        var sortedScripts = sort(config.scripts);
         for(var key in sortedScripts){
             var scriptName = sortedScripts[key];
             var script = config.scripts[scriptName];
@@ -103,7 +78,7 @@ var AssetPipe = function( config, basePath ) {
         var parsedHtml = html.replace(/{{ js }}/g, scripts).replace(/{{ css }}/g, styles);
         this.fire('afterParse');
         return parsedHtml; 
-       
+    } 
 }
 
 module.exports = AssetPipe; 
