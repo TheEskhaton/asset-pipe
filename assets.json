@@ -1,0 +1,15 @@
+ {
+            "environment":"production", 
+            "development" :
+                {   
+                    "scripts" : { "jquery": "jquery.js"}, 
+                    "styles" : { "main": "main.css"}
+                },
+            "production" : 
+                {
+                    "scripts" : { "jquery" : "jquery.min.js", "build" : "app/build.js" },
+                    "styles" : { "main": "main.min.css"}
+                }
+
+}
+

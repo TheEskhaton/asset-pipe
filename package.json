@@ -1,0 +1,12 @@
+{
+  "name": "asset-pipe",
+  "version": "0.0.0",
+  "description": "A simple asset templating library that turns html template tags into js and css links",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD"
+}
