@@ -25,6 +25,41 @@ var getSortedDependencies = function(scripts){
 }
 
 var AssetPipe = function( config, basePath ) {
+     /* Events */
+    var pipeEvents = []
+    var PipeEvent = function(name){
+        this.name = name;
+        this.handlers = [];
+    };
+
+    this.on = function(evtName, fn){
+            var hasEvents = false;
+            for(var key in pipeEvents){
+                var val = pipeEvents[key];
+                 if(val.name === evtName){
+                    val.handlers.push(fn);
+                    hasEvents = true;
+                }
+            }
+            if(!hasEvents){
+                var newGlobal = new PipeEvent(evtName);
+                newGlobal.handlers.push(fn);
+                pipeEvents.push(newGlobal);
+            }
+    };
+    this.fire = function(evtName){
+        for(var key in pipeEvents){
+            var val = pipeEvents[key];
+            if(val.name === evtName){
+                for(var handlerKey in val.handlers){
+                    var handler = val.handlers[handlerKey];
+                    handler();
+                }
+            }
+        }
+    };
+    /* Init */
+    this.fire('onInit');
     var config = config || require('./assets'); 
     if(!config) throw new Error('Please provide a configuration');
     if(config.environment){
@@ -62,15 +97,13 @@ var AssetPipe = function( config, basePath ) {
 
 
     this.parse = function(html){
-       var scripts = this.buildScriptTags();
-       var styles = this.buildCssTags();
+        this.fire('beforeParse');
+        var scripts = this.buildScriptTags();
+        var styles = this.buildCssTags();
 
-       return html.replace(/{{ js }}/g, scripts).replace(/{{ css }}/g, styles);
+        return html.replace(/{{ js }}/g, scripts).replace(/{{ css }}/g, styles);
     }
+       
 }
 
 module.exports = AssetPipe; 
-
-var pipe = new AssetPipe();
-
-console.log(pipe.parse('<head>{{ js }} {{ css }}</head>'));
