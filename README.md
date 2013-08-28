@@ -22,15 +22,11 @@ assets.json:
             "environment":"development", 
             "development" :
                 {   
-                    "scripts" : { "jquery": "jquery.js"}, 
+                    "scripts" : { "jquery":{
+                            "path": "jquery.js"
+                        }, 
                     "styles" : { "main": "main.css"}
                 },
-            "production" : 
-                {
-                    "scripts" : { "jquery" : "jquery.min.js", "build" : "app/build.js" },
-                    "styles" : { "main": "main.min.css"}
-                }
-
     }
 ```
 
