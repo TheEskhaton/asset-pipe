@@ -8,5 +8,8 @@
   },
   "repository": "https://github.com/TheEskhaton/asset-pipe/",
   "author": "Alen Genzić",
-  "license": "BSD"
+  "license": "BSD",
+  "dependencies": {
+    "uglifyjs": "~2.3.6"
+  }
 }
