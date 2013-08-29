@@ -32,7 +32,7 @@ AssetPipe.prototype.parse = function(html){
         var parsedHtml = html.replace(/{{ js }}/g, scripts).replace(/{{ css }}/g, styles);
         this.fire('afterParse');
         return parsedHtml; 
-    } 
+} 
 AssetPipe.prototype.build = function(){
     this.fire('beforeBuild');
     var buildConfig = this.config.build;

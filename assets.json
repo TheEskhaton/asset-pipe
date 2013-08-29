@@ -30,7 +30,7 @@
                 {
                     "scripts" : { 
                         "build" :
-                        {"path" : "app/build.js"} },
+                        {"path" : "/build.js"} },
                     "styles" : { "main": "main.min.css"}
                 },
             "build" : {
