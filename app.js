@@ -2,7 +2,6 @@
 var extend = require('./lib/extend');
 
 var AssetPipe = function( config, basePath ) {
-    this.fire('init');
     this.config = config = config || require('./assets'); 
     if(!config) throw new Error('Please provide a configuration');
     if(config.environment){
