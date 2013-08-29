@@ -28,7 +28,11 @@
                 },
             "production" : 
                 {
-                    "scripts" : { "jquery" : "jquery.min.js", "build" : "app/build.js" },
+                    "scripts" : {
+                        "jquery" : 
+                        {"path": "jquery.min.js"}, 
+                        "build" :
+                        {"path" : "app/build.js", "dependsOn" : ["jquery"]} },
                     "styles" : { "main": "main.min.css"}
                 }
 

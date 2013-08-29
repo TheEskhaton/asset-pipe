@@ -47,7 +47,7 @@ var AssetPipe = function( config, basePath ) {
             config.styles = config.production.styles;
         }
     }
-    basePath = basePath || '/';
+    this.basePath = basePath || '/';
     
     
     this.buildScriptTags = function(){
@@ -56,7 +56,7 @@ var AssetPipe = function( config, basePath ) {
         for(var key in sortedScripts){
             var scriptName = sortedScripts[key];
             var script = config.scripts[scriptName];
-            scriptTags += '<script src="'+basePath+script.path+'" type="text/javascript"></script>';  
+            scriptTags += '<script src="'+this.basePath+script.path+'" type="text/javascript"></script>';  
         }
 
 
@@ -65,7 +65,7 @@ var AssetPipe = function( config, basePath ) {
     this.buildCssTags = function(){
         var cssTags = '';
         for(var css in config.styles){
-            cssTags+= '<link href="'+basePath+config.styles[css]+'" rel="stylesheet" />';
+            cssTags+= '<link href="'+this.basePath+config.styles[css]+'" rel="stylesheet" />';
         }
         return cssTags;
     }
