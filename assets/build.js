@@ -1,0 +1,1 @@
+;var test=function(e){console.log(e)};;var _=function(){return"Definitely not underscore"};;var $=function(){return"Definitely not  jQuery"};;(function(){var e=function(){this.Model="Not a Backbone model"};window.Backbone=e})();;function appFunc(e){var t=e;return e};

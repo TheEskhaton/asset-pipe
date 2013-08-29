@@ -28,13 +28,14 @@
                 },
             "production" : 
                 {
-                    "scripts" : {
-                        "jquery" : 
-                        {"path": "jquery.min.js"}, 
+                    "scripts" : { 
                         "build" :
-                        {"path" : "app/build.js", "dependsOn" : ["jquery"]} },
+                        {"path" : "app/build.js"} },
                     "styles" : { "main": "main.min.css"}
-                }
-
+                },
+            "build" : {
+                "destination" : "/build.js",
+                "baseFilesPath" : "/assets/"
+            }
 }
 
