@@ -34,6 +34,7 @@ AssetPipe.prototype.parse = function(html){
         return parsedHtml; 
     } 
 AssetPipe.prototype.build = function(){
+    this.fire('beforeBuild');
     var buildConfig = this.config.build;
     var baseFilesPath = buildConfig.baseFilesPath;
     var devScripts = this.config.development.scripts;
@@ -47,6 +48,7 @@ AssetPipe.prototype.build = function(){
     var builtScripts = concatMin.build(sortedScriptPaths);
     buildConfig.destination = __dirname+baseFilesPath+buildConfig.destination;
     concatMin.writeBuild(builtScripts, buildConfig);
+    this.fire('afterBuild');
 }
 
 module.exports = AssetPipe;
